@@ -7,10 +7,13 @@ import { CelebrateError } from "celebrate";
 import { drizzle } from "drizzle-orm/libsql";
 import logger from "../utils/logger";
 import rateLimit from "express-rate-limit";
+import { setupSwagger } from "../utils/swagger";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+setupSwagger(app);
 
 const limiter = rateLimit({
   windowMs: 1000 * 60 * 1,
