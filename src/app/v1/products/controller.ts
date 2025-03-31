@@ -3,6 +3,48 @@ import * as service from "./service";
 import { success } from "../../../utils";
 import { Pagination } from "../../../types";
 
+/**
+ * @swagger
+ * /api/v1/products:
+ *   get:
+ *     summary: Retrieve a list of products
+ *     tags:
+ *       - Products
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of products per page
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number
+ *     responses:
+ *       200:
+ *         description: A list of products with pagination
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 meta:
+ *                   type: object
+ *                   properties:
+ *                     pagination:
+ *                       type: object
+ */
 export async function getProducts(
   req: Request,
   res: Response,
@@ -23,6 +65,35 @@ export async function getProducts(
   }
 }
 
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *   get:
+ *     summary: Retrieve a single product by ID
+ *     tags:
+ *       - Products
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The product ID
+ *     responses:
+ *       200:
+ *         description: A single product
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ */
 export async function getProduct(
   req: Request,
   res: Response,
@@ -39,6 +110,41 @@ export async function getProduct(
   }
 }
 
+/**
+ * @swagger
+ * /api/v1/products:
+ *   post:
+ *     summary: Create a new product
+ *     tags:
+ *       - Products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Product created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ */
 export async function createProduct(
   req: Request,
   res: Response,
@@ -53,6 +159,48 @@ export async function createProduct(
   }
 }
 
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *   put:
+ *     summary: Update an existing product
+ *     tags:
+ *       - Products
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The product ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ */
 export async function updateProduct(
   req: Request,
   res: Response,
@@ -69,6 +217,35 @@ export async function updateProduct(
   }
 }
 
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *   delete:
+ *     summary: Delete a product by ID
+ *     tags:
+ *       - Products
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The product ID
+ *     responses:
+ *       200:
+ *         description: Product deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ */
 export async function deleteProduct(
   req: Request,
   res: Response,
