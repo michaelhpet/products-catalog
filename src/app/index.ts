@@ -6,10 +6,25 @@ import { AppError } from "../utils";
 import { CelebrateError } from "celebrate";
 import { drizzle } from "drizzle-orm/libsql";
 import logger from "../utils/logger";
+import rateLimit from "express-rate-limit";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const limiter = rateLimit({
+  windowMs: 1000 * 60 * 1,
+  max: 100,
+  message: {
+    status: "fail",
+    message: "Too many requests from this IP, please try again after a minute",
+    data: null,
+  },
+  legacyHeaders: true,
+  standardHeaders: true,
+});
+
+app.use(limiter);
 
 app.use("/api/v1", v1Router);
 
