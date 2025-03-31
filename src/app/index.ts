@@ -34,11 +34,19 @@ app.use((err: AppError, _: Request, res: Response, __: NextFunction) => {
     err.code || err.statusCode || 500,
     err.message || "Internal server error"
   );
-  res.status(error.code).json({
-    status: error.status,
-    message: error.message,
-    data: null,
-  });
+  try {
+    res.status(error.code).json({
+      status: error.status,
+      message: error.message,
+      data: null,
+    });
+  } catch {
+    res.status(500).json({
+      status: error.status,
+      message: error.message,
+      data: null,
+    });
+  }
 });
 
 const PORT = process.env.PORT || 8080;

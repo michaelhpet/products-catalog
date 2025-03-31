@@ -44,9 +44,12 @@ export async function createProduct(product: any) {
 }
 
 export async function updateProduct(id: string, product: Product) {
+  if (!Object.keys(product).length)
+    throw new AppError(400, "No data provided to update");
+
   const [data] = await db
     .update(products)
-    .set(product)
+    .set({ ...product, updated_at: new Date().toISOString() })
     .where(eq(products.id, id))
     .returning();
 

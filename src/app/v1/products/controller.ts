@@ -11,9 +11,13 @@ export async function getProducts(
   try {
     const { limit = 10, page = 1 } = req.query as unknown as Pagination;
 
-    const data = await service.getProducts({ limit, page });
+    const { products, pagination } = await service.getProducts({ limit, page });
 
-    res.status(200).json(success(data, "Products retrieved successfully"));
+    res
+      .status(200)
+      .json(
+        success(products, "Products retrieved successfully", { pagination })
+      );
   } catch (error) {
     next(error);
   }

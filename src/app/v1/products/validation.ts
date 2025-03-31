@@ -20,7 +20,7 @@ export const validatePOSTProduct = celebrate({
     category: Joi.string().required(),
     price: Joi.number().required(),
     sku: Joi.string().required(),
-    stock_status: Joi.string().valid("in_stock", "out_of_stock").required(),
+    stock_status: Joi.string().valid("in_stock", "out_of_stock"),
   },
 });
 

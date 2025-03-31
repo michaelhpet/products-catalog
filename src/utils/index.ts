@@ -29,8 +29,8 @@ export function getPagination(
   };
 }
 
-export function success<T>(data: T, message: string) {
-  return { status: "success", message, data };
+export function success<T>(data: T, message: string, meta?: any) {
+  return { status: "success", message, data, meta };
 }
 
 export class AppError extends Error {
