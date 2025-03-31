@@ -63,5 +63,5 @@ export async function deleteProduct(id: string) {
 
   if (!data) throw new AppError(404, "Product not found");
 
-  return data;
+  return null;
 }

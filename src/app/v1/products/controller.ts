@@ -18,3 +18,65 @@ export async function getProducts(
     next(error);
   }
 }
+
+export async function getProduct(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    const data = await service.getProduct(id);
+
+    res.status(200).json(success(data, "Product retrieved successfully"));
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function createProduct(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await service.createProduct(req.body);
+
+    res.status(201).json(success(data, "Product created successfully"));
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function updateProduct(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    const data = await service.updateProduct(id, req.body);
+
+    res.status(200).json(success(data, "Product updated successfully"));
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function deleteProduct(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    const data = await service.deleteProduct(id);
+
+    res.status(200).json(success(data, "Product deleted successfully"));
+  } catch (error) {
+    next(error);
+  }
+}
