@@ -1,7 +1,8 @@
 import { db } from "../../../db";
 import { products } from "../../../db/schema";
-import { getPagination } from "../../../utils";
-import { Pagination } from "../../../types";
+import { AppError, getPagination } from "../../../utils";
+import { Pagination, Product } from "../../../types";
+import { eq } from "drizzle-orm";
 
 export async function getProducts(query: Pagination) {
   const { limit = 10, page = 1 } = query;
@@ -20,4 +21,47 @@ export async function getProducts(query: Pagination) {
     products: data,
     pagination: getPagination({ limit, page }, data.length, totalRecords),
   };
+}
+
+export async function getProduct(id: string) {
+  const [data] = await db
+    .select()
+    .from(products)
+    .where(eq(products.id, id))
+    .limit(1);
+
+  if (!data) throw new AppError(404, "Product not found");
+
+  return data;
+}
+
+export async function createProduct(product: any) {
+  const [data] = await db.insert(products).values(product).returning();
+
+  if (!data) throw new AppError(500, "Could not create product");
+
+  return data;
+}
+
+export async function updateProduct(id: string, product: Product) {
+  const [data] = await db
+    .update(products)
+    .set(product)
+    .where(eq(products.id, id))
+    .returning();
+
+  if (!data) throw new AppError(404, "Product not found");
+
+  return data;
+}
+
+export async function deleteProduct(id: string) {
+  const [data] = await db
+    .delete(products)
+    .where(eq(products.id, id))
+    .returning();
+
+  if (!data) throw new AppError(404, "Product not found");
+
+  return data;
 }
