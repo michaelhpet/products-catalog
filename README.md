@@ -99,6 +99,16 @@ The server will start on the port specified in the `.env` file (default: `8000`)
 http://localhost:<PORT>/api/v1
 ```
 
+### Swagger Documentation
+
+The API includes Swagger documentation for easy exploration of endpoints. Once the server is running, you can access the Swagger UI at:
+
+```
+http://localhost:<PORT>/docs
+```
+
+---
+
 ### Endpoints
 
 #### 1. **Get All Products**
