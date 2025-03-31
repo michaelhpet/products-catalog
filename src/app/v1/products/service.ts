@@ -2,7 +2,7 @@ import { db } from "../../../db";
 import { products } from "../../../db/schema";
 import { AppError, getPagination } from "../../../utils";
 import { Pagination, Product } from "../../../types";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function getProducts(query: Pagination) {
   const { limit = 10, page = 1 } = query;
@@ -11,7 +11,7 @@ export async function getProducts(query: Pagination) {
   const data = await db
     .select()
     .from(products)
-    .orderBy(products.created_at)
+    .orderBy(desc(products.created_at))
     .limit(limit)
     .offset(offset);
 
