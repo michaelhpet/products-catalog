@@ -13,7 +13,7 @@ const swaggerOptions = {
     },
     servers: [{ url: "http://localhost:8000" }],
   },
-  apis: [path.resolve(__dirname, "../app/**/docs.ts")],
+  apis: [path.resolve(__dirname, "../app/**/docs.{ts,js}")],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
